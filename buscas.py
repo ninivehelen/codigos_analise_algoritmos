@@ -14,6 +14,7 @@ def criar_lista_n(valor):
     return n
 #Função para gerar os valores aletorios de q
 def criar_lista_q(valor):
+    q = np.random.randint(1, 100000, 100000)
     valor_tam = list(str(valor))
     tam = len(valor_tam)
     valor_tam = tam - 1
@@ -96,14 +97,14 @@ def salvar_dados(valor,tempo,nome):
   print(f'arquivo salvo {nome}')
 
 #Função de criar o gráfico
-def criar_grafico(nome):
+def criar_grafico(nome,core):
     df = pd.read_csv(f'{nome}.csv')
     troca_valores = {10000: '10^4', 100000: '10^5', 1000000: '10^6', 10000000: '10^7'}
     df['Valor'] = df['Valor'].map(troca_valores)
     
-    #palette=['magenta', 'deepskyblue', 'yellowgreen']
+    plt.figure()
     sns.set_style("whitegrid")
-    sns.lineplot(data=df, x='Valor', y='Tempo', hue='Função',palette=['deepskyblue', 'yellowgreen','Margenta'])
+    sns.lineplot(data=df, x='Valor', y='Tempo', hue='Função',palette=[core])
 
     plt.xlabel('Quantidade de números buscado',fontsize=10, fontweight='bold')
     plt.ylabel('Tempo em segundos',fontsize=10, fontweight='bold')
@@ -125,4 +126,5 @@ def criar_grafico(nome):
 
     plt.yticks(y_ticks)
     plt.savefig(f'{nome}.png', format='png')
+    plt.close() 
     print("gráfico criado")
