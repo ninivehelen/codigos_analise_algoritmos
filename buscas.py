@@ -17,13 +17,16 @@ def criar_lista_n(valor_n):
     n = np.random.randint(0,tam_n,tam_n)
     return n
 #Função para gerar os valores aletorios de q
-def criar_lista_q():
-    #possiveis quantidades que q pode ter de 10^2 até 10^5 de forma aleatoria
-    possiveis_quantidades = [10**2, 10**3, 10**4, 10**5]
-    #para escolher a quantidade
-    quantidade = np.random.choice(possiveis_quantidades)
-    #Gerando os valores aleatorios
-    q = np.random.randint(0, quantidade, quantidade)
+def criar_lista_q(valor_q):
+    #capturando o valor e trasformando em lista
+    valor_tam_q = list(str(valor_q))
+    #Quantidade do tamanho de valor
+    tam_q = len(valor_tam_q)
+    #diminuido um valor para ficar a quantidade correta, pois o numero 1 não entra na contagem do valor 1000, 10000 etc..
+    valor_tam_q = tam_q - 1
+    tam_q = 10**valor_tam_q
+    #gerando o vetor de numeros aleatorios
+    q = np.random.randint(0,tam_q,tam_q)
     return q
 
 #Função busca sequencial 
@@ -43,7 +46,7 @@ def busca_sequencial_linear(n,q,valor_n,tam_q, nome):
      salvar_dados(valor_n,tam_q,tempo_total,nome)
      return ocorrencia_na_lista
 
-#Função busca sequencia otimizada  
+#Função busca sequencial otimizada  
 def busca_sequencial_otimizada(n,q,valor_n,tam_q, nome):
     #está função ordena n de forma crescente e veririca se n for maior que q para volta pro inicio da lista e verifica o proximo q
     #está função pecorre  n e verificando se o q estã contido em n
@@ -121,9 +124,9 @@ def criar_grafico(nome, cor):
     plt.figure()
     df = df.sort_values(by='Valor_n')
     df = df.rename(columns={'Valor_q': 'Quantidade de Números q'})
-    sns.lineplot(data=df, x='Valor_n', y='Tempo', hue='Quantidade de Números q',palette=[cor], style='Quantidade de Números q',markers=True,lw=1,markeredgewidth=1.25,markeredgecolor='black',markersize=7,errorbar=None,markerfacecolor='white', dashes=False)
-    plt.plot(df['Valor_n'], df['Tempo'], marker='', color=cor, linewidth=2, linestyle='-')
-
+    sns.lineplot(data=df, x='Valor_n', y='Tempo', hue='Quantidade de Números q',palette=[cor], style='Quantidade de Números q',markers=True,lw=0,markeredgewidth=1.25,markeredgecolor='black',markersize=7,errorbar=None,markerfacecolor='white',dashes=False)
+    plt.plot(df['Valor_n'], df['Tempo'], marker='', color=cor, linewidth=2, linestyle='None')
+    
     # Ajustando a legenda
     plt.legend(title='Quantidade de Números q', loc='best')
     
